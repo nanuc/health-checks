@@ -17,21 +17,30 @@ class UsedDiskSpaceOnRemoteSystemCheck extends Check
     protected string $host = 'localhost';
     protected int $port = 22;
 
-    public function withUser(string $user)
+    protected ?string $filesystemName = null;
+
+    public function filesystemName(string $filesystemName): self
+    {
+        $this->filesystemName = $filesystemName;
+
+        return $this;
+    }
+
+    public function user(string $user)
     {
         $this->user = $user;
 
         return $this;
     }
 
-    public function withHost(string $host)
+    public function host(string $host)
     {
         $this->host = $host;
 
         return $this;
     }
 
-    public function withPort(string $port)
+    public function port(string $port)
     {
         $this->port = $port;
 
@@ -74,7 +83,7 @@ class UsedDiskSpaceOnRemoteSystemCheck extends Check
     protected function getDiskUsagePercentage(): int
     {
         $process = Ssh::create($this->user, $this->host, $this->port)
-            ->execute('df -P .');
+            ->execute('df -P '.($this->filesystemName ?: '.'));
 
         $output = $process->getOutput();
 
