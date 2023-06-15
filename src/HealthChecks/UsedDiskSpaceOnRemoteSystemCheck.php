@@ -33,16 +33,16 @@ class UsedDiskSpaceOnRemoteSystemCheck extends Check
         return $this;
     }
 
-    public function host(string $host)
+    public function host($host = null)
     {
-        $this->host = $host;
+        $this->host = $host ?? '';
 
         return $this;
     }
 
-    public function port(string $port)
+    public function port($port = null)
     {
-        $this->port = $port;
+        $this->port = $port ?? '';
 
         return $this;
     }
