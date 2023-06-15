@@ -28,7 +28,7 @@ class UsedDiskSpaceOnRemoteSystemCheck extends Check
 
     public function user($user = null)
     {
-        $this->user = $user;
+        $this->user = $user ?? '';
 
         return $this;
     }
